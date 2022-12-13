@@ -4,6 +4,7 @@ import com.structurizr.Workspace
 import com.structurizr.model.Location
 import com.structurizr.model.Model
 import com.structurizr.model.Tags
+import com.structurizr.view.AutomaticLayout
 import com.structurizr.view.Shape
 import com.structurizr.view.ViewSet
 import io.cloudflight.architecture.structurizr.SpringStructurizr
@@ -44,6 +45,7 @@ class ViewConfigurer(workspace: Workspace) : ViewProvider {
     override fun createViews(viewSet: ViewSet) {
         viewSet.createSystemLandscapeView("codingcontest", "").also {
             it.addAllElements()
+            it.enableAutomaticLayout(AutomaticLayout.RankDirection.BottomTop)
         }
     }
 }
@@ -174,16 +176,19 @@ class CodingContest(model: Model, personas: Personas) : ViewProvider {
         viewSet.createContainerView(platform, "ccp", "Coding Contest Platform").apply {
             addAllContainersAndInfluencers()
             addAllPeople()
+            enableAutomaticLayout(AutomaticLayout.RankDirection.BottomTop)
         }
 
         viewSet.createContainerView(platform, "ccpNoAzure", "Coding Contest Platform without DB").apply {
             addAllContainersAndInfluencers()
             addAllPeople()
             removeElementsWithTag(MyTags.AzureInfrastructure)
+            enableAutomaticLayout(AutomaticLayout.RankDirection.BottomTop)
         }
 
         viewSet.createDeploymentView(platform, "deployment", "").apply {
             addAllDeploymentNodes()
+            enableAutomaticLayout(AutomaticLayout.RankDirection.BottomTop)
         }
     }
 }
